@@ -3,24 +3,24 @@ on: push
 jobs:
   Dependances:
     runs-on: ubuntu-latest
-    steps:
-      
-    - uses: actions/checkout@v4
-    - name: Dependances
-      run: |
-        echo "Contrôle des dépendances"
-        docker run --rm -v $(pwd):/app aquasec/trivy fs /breakableflask/requirements.txt --exit-code 1 --severity HIGH,CRITICAL
+    steps: 
+      - uses: actions/checkout@v4
+      - name: Dependances
+        run: |
+          echo "Contrôle des dépendances"
+          docker run --rm -v $(pwd):/app aquasec/trivy fs /breakableflask/requirements.txt --exit-code 1 --severity HIGH,CRITICAL
+   
   Dockerfile:
     runs-on: ubuntu-latest
     needs: Dependances
     steps:
-  name: Test Dockerfile
-      run: |
-        echo "ecrire ici le scrypt de contrôle du Dockerfile"
+      - name: Test Dockerfile
+        run: |
+          echo "ecrire ici le scrypt de contrôle du Dockerfile"
   Deploy:
     runs-on: ubuntu-latest
     needs: Dockerfile
     steps:
-  name: Deploy
-      run: |
-        echo "Rien à faire ici. Votre application est prête à être déployée"
+      - name: Deploy
+        run: |
+          echo "Rien à faire ici. Votre application est prête à être déployée"
